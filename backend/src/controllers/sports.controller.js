@@ -31,6 +31,29 @@ const createEvent = async(req, res) =>{
     }
 }
 
+const updateEvent = async(req, res) =>{
+
+    let eventId = req.params.id
+
+    let singleEvent = await Sports.findOne({eventId})
+
+    try {
+        
+        if(!singleEvent){
+            return res.status(404).send({message: "Event not found"})
+        }
+        else{
+
+            const updatedEvent = await Sports.findByIdAndUpdate({_id:eventId}, req.body)
+
+            return res.status(201).send({message:"Event updated", updatedEvent})
+        }
+    } catch (error) {
+        return res.status(500).send({message: error.message})        
+    }
+}
+
+
 const deleteEvent = async(req, res) =>{
 
     let eventId = req.params.id
@@ -51,4 +74,4 @@ const deleteEvent = async(req, res) =>{
     }
 }
 
-module.exports = {getEvents, createEvent, deleteEvent}
+module.exports = {getEvents, createEvent, deleteEvent, updateEvent}
