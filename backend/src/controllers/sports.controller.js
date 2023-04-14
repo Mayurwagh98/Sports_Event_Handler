@@ -11,22 +11,28 @@ const getEvents = async(req, res) =>{
     }
 }
 
-const createEvent = async(req, res) =>{
-
-    let {title} = req.body
-
-    let sports_event = await Sports.findOne({title})
+// ------ get single event --------
+const singleEvent = async(req, res) =>{
 
 
     try {
-        if(sports_event){
-            return res.status(400).send({message: "Event already exists!"})
-        }
-        else{
+        let singleEvent = await Sports.findById(req.params._id)
+
+        return res.status(200).send(singleEvent)
+
+    } catch (error) {
+        return res.status(500).send({message: error.message})        
+    }
+}
+
+const createEvent = async(req, res) =>{
+
+    try {
+        
             const newEvent = await Sports.create(req.body)
 
             return res.status(201).send({message:"Event created successfully!", newEvent})
-        }
+        
     } catch (error) {
         return res.status(500).send({message: error.message})        
     }
@@ -75,4 +81,4 @@ const deleteEvent = async(req, res) =>{
     }
 }
 
-module.exports = {getEvents, createEvent, deleteEvent, updateEvent}
+module.exports = {getEvents, createEvent, deleteEvent, updateEvent, singleEvent}
