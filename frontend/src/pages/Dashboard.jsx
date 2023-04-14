@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
+import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "antd";
 import Cookies from "cookies-js";
 import { getEventsData } from "../redux/action";
@@ -12,6 +13,7 @@ const Dashboard = () => {
   let [searchTerm, setSearchTerm] = useState("");
 
   let [filterData, setFilterData] = useState(events);
+  let navigate = useNavigate();
 
   let dispatch = useDispatch();
   let user = Cookies.get("user");
@@ -68,6 +70,11 @@ const Dashboard = () => {
         return item.title == "Golf";
       });
       setFilterData(newData);
+    } else if (option == "Cricket") {
+      newData = events.filter((item) => {
+        return item.title == "Cricket";
+      });
+      setFilterData(newData);
     }
   };
 
@@ -104,15 +111,17 @@ const Dashboard = () => {
           <div className="filter_shop_div">
             <select onChange={handleFilter} className="filter_options">
               <option value="">Default</option>
-              {/* <option value="football">Football</option>
-              <option value="baseball">Baseball</option> */}
-              {events.map((item, index) => {
+              <option value="Football">Football</option>
+              <option value="Baseball">Baseball</option>
+              <option value="Cricket">Cricket</option>
+              <option value="Golf">Golf</option>
+              {/* {events.map((item, index) => {
                 return (
                   <option key={index} value={item.title}>
                     {item.title}
                   </option>
                 );
-              })}
+              })} */}
             </select>
           </div>
         </div>
@@ -127,10 +136,17 @@ const Dashboard = () => {
               <div key={index}>
                 <h3>Title:- {item.title}</h3>
                 {/* <p>UserID:- {item.userID}</p> */}
-                <p>Description:- {item.description}</p>
+                {/* <p>Description:- {item.description}</p> */}
                 <p>Timing:- {item.timing}</p>
-                <p>Limit:- {item.number_of_players_limit}</p>
-                {user !== item.userID ? <button>Join Event</button> : null}
+                {/* <p>Limit:- {item.number_of_players_limit}</p> */}
+                {user !== item.userID ? (
+                  <Button
+                    type="primary"
+                    onClick={() => navigate(`/eventdetails/${item._id}`)}
+                  >
+                    Details
+                  </Button>
+                ) : null}
               </div>
             );
           })}
