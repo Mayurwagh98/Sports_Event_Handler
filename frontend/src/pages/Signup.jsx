@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./Signup.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   let [signupData, setSignupData] = useState({
@@ -9,6 +9,8 @@ const Signup = () => {
     email: "",
     password: "",
   });
+
+  let navigate = useNavigate();
 
   let handleForm = (event) => {
     let { name, value } = event.target;
@@ -23,8 +25,11 @@ const Signup = () => {
     await axios
       .post("http://localhost:8000/api/signup", signupData)
       .then((res) => {
-        console.log(res.data);
-        // alert(res.data.message);
+        // console.log(res.data);
+        alert(res.data.message);
+        setTimeout(() => {
+          navigate("/login");
+        }, 1200);
       })
       .catch((e) => console.log(e.message));
   };

@@ -17,13 +17,13 @@ const Login = () => {
     await axios
       .post("http://localhost:8000/api/login", loginUserData)
       .then((res) => {
-        console.log(res.data.token);
+        console.log(res.data);
         Cookies.set("token", res.data.token);
+        Cookies.set("user", res.data.userId);
         alert(res.data.message);
         setTimeout(() => {
           navigate("/");
         }, 1200);
-        // localStorage.setItem("token", res.data.token);
       })
       .catch((e) => {
         console.log(e.message);
