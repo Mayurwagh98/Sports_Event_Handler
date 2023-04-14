@@ -48,7 +48,7 @@ let Login = async(req, res) =>{
 
         const token = jwt.sign({userID: user._id},'blah')
 
-        return res.status(200).send({message: "Login Successful!", token: token})
+        return res.status(200).send({message: "Login Successful!", token: token,userId: user._id})
         
     } catch (error) {
         return res.status(500).send({message: error. message})

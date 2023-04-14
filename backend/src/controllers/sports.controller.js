@@ -17,6 +17,7 @@ const createEvent = async(req, res) =>{
 
     let sports_event = await Sports.findOne({title})
 
+
     try {
         if(sports_event){
             return res.status(400).send({message: "Event already exists!"})
