@@ -49,7 +49,8 @@ let userJoiningRequest = (payload) => {
 let getEventsData = (setFilterData, filterData) => async (dispatch) => {
   dispatch(get_events_request());
   await axios
-    .get("http://localhost:8000/api/events")
+    // .get("http://localhost:8000/api/events")
+    .get("https://take4.onrender.com/api/events")
     .then((res) => {
       console.log(res.data);
       filterData = res.data;
@@ -66,7 +67,8 @@ let getEventsData = (setFilterData, filterData) => async (dispatch) => {
 let getSingleEventData = (_id) => async (dispatch) => {
   dispatch(get_single_event_request());
   await axios
-    .get(`http://localhost:8000/api/events/${_id}`)
+    // .get(`http://localhost:8000/api/events/${_id}`)
+    .get(`https://take4.onrender.com/api/events/${_id}`)
     .then((res) => {
       // console.log(res.data);
       dispatch(get_single_event_success(res.data));

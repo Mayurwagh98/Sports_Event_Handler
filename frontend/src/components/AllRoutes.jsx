@@ -7,32 +7,39 @@ import { EventDetails } from "../pages/EventDetails";
 import { RequestsPage } from "../pages/RequestsPage";
 import { StatusPage } from "../pages/StatusPage";
 import { Room } from "../pages/Room";
-import Cookies from "cookies-js";
+import Cookies from "js-cookie";
+import { useAuth } from "./AuthContext";
 
 let AllRoutes = () => {
-  let user = Cookies.get("user");
+  // let user = Cookies.get("user");
+
+  let { user } = useAuth();
+  let { token } = user || "";
 
   return (
     <Routes>
       <Route
         path="/"
-        element={user ? <Dashboard /> : <Navigate to="/login" />}
+        element={token ? <Dashboard /> : <Navigate to="/login" />}
       />
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
       <Route
         path="/eventdetails/:_id"
-        element={user ? <EventDetails /> : <Navigate to="/login" />}
+        element={token ? <EventDetails /> : <Navigate to="/login" />}
       />
       <Route
         path="/requests"
-        element={user ? <RequestsPage /> : <Navigate to="/login" />}
+        element={token ? <RequestsPage /> : <Navigate to="/login" />}
       />
       <Route
         path="/status"
-        element={user ? <StatusPage /> : <Navigate to="/login" />}
+        element={token ? <StatusPage /> : <Navigate to="/login" />}
       />
-      <Route path="/room" element={<Room />} />
+      <Route
+        path="/room"
+        element={token ? <Room /> : <Navigate to="/login" />}
+      />
     </Routes>
   );
 };

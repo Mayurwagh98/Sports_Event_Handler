@@ -4,7 +4,7 @@ import "./CreateEvent.css";
 import { Input } from "antd";
 import { getEventsData } from "../redux/action";
 import { useDispatch, useSelector } from "react-redux";
-import Cookies from "cookies-js";
+import Cookies from "js-cookie";
 
 const CreateEvent = ({ setFilterData, filterData }) => {
   let [text, setText] = useState({
@@ -25,7 +25,8 @@ const CreateEvent = ({ setFilterData, filterData }) => {
       },
     };
     await axios
-      .post("http://localhost:8000/api/events/create", text, config)
+      // .post("http://localhost:8000/api/events/create", text, config)
+      .post("https://take4.onrender.com/api/events/create", text, config)
       .then((res) => {
         console.log(res.data);
         dispatch(getEventsData(setFilterData, filterData));

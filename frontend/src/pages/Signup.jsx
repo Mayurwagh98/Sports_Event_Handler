@@ -23,7 +23,8 @@ const Signup = () => {
 
   let signupUser = async () => {
     await axios
-      .post("http://localhost:8000/api/signup", signupData)
+      // .post("http://localhost:8000/api/signup", signupData)
+      .post("https://take4.onrender.com/api/signup", signupData)
       .then((res) => {
         // console.log(res.data);
         alert(res.data.message);

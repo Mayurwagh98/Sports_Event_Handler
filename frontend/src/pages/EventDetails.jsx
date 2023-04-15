@@ -3,7 +3,7 @@ import { json, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleEventData, userJoiningRequest } from "../redux/action";
 import { Button, Modal, Result, Progress, Space } from "antd";
-import Cookies from "cookies-js";
+import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import "./EventDetails.css";
 // import { userJoiningRequest } from "../redux/action";

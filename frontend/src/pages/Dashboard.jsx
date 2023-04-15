@@ -3,7 +3,7 @@ import axios from "axios";
 import "./Dashboard.css";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "antd";
-import Cookies from "cookies-js";
+import Cookies from "js-cookie";
 import { getEventsData } from "../redux/action";
 import { useDispatch, useSelector } from "react-redux";
 import { CreateEvent } from "../components/CreateEvent";
@@ -81,7 +81,8 @@ const Dashboard = () => {
 
   let handleDelete = async (item) => {
     try {
-      await axios.delete(`http://localhost:8000/api/events/delete/${item._id}`);
+      // await axios.delete(`http://localhost:8000/api/events/delete/${item._id}`);
+      await axios.delete(`https://take4.onrender.com/api/events/delete/${item._id}`);
 
       // console.log(data)
       dispatch(getEventsData(setFilterData, filterData));
@@ -94,8 +95,7 @@ const Dashboard = () => {
     <div>
       <div className="heading_create_div">
         <h3>
-          Welcome back <span style={{ color: "red" }}>{username}</span>, this
-          are the events
+          Welcome back <span style={{ color: "red" }}>{username}</span>
         </h3>
 
         {/* ------ create event modal -------------- */}

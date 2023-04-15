@@ -1,11 +1,14 @@
 import "./Navbar.css";
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Cookies from "cookies-js";
+import Cookies from "js-cookie";
+import { useAuth } from "./AuthContext";
 
 const Navbar = () => {
-  let user = Cookies.get("user");
-  let username = Cookies.get("username");
+  // let user = Cookies.get("user");
+  // let username = Cookies.get("username");
+
+  let { logout } = useAuth();
 
   return (
     <>
@@ -32,6 +35,10 @@ const Navbar = () => {
 
           <li>
             <NavLink to="/login">Login</NavLink>
+          </li>
+          <li>
+            {/* <button >Logout</button> */}
+            <button onClick={logout}>Logout</button>
           </li>
         </ul>
       </nav>

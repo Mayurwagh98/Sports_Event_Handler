@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Cookies from "cookies-js";
+import Cookies from "js-cookie";
 import "./StatusPage.css";
 
 const StatusPage = () => {

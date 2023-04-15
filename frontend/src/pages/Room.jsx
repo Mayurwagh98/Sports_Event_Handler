@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Cookies from "cookies-js";
+import Cookies from "js-cookie";
 
 const Room = () => {
   let localAccepted = JSON.parse(localStorage.getItem("accepted"));

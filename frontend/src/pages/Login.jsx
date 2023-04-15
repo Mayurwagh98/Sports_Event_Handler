@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Cookies from "cookies-js";
+import Cookies from "js-cookie";
+import { useAuth } from "../components/AuthContext";
 
 const Login = () => {
   let [loginUserData, setLoginUserData] = useState({
@@ -11,26 +12,8 @@ const Login = () => {
     password: "",
   });
 
+  const { login } = useAuth();
   let navigate = useNavigate();
-
-  let loginUser = async () => {
-    await axios
-      .post("http://localhost:8000/api/login", loginUserData)
-      .then((res) => {
-        console.log(res.data);
-        Cookies.set("token", res.data.token);
-        Cookies.set("user", res.data.userId);
-        Cookies.set("username", res.data.name);
-        alert(res.data.message);
-        setTimeout(() => {
-          navigate("/");
-        }, 1200);
-      })
-      .catch((e) => {
-        // console.log(e);
-        alert(e.response.data.message);
-      });
-  };
 
   let handleLogin = (event) => {
     let { name, value } = event.target;
@@ -62,7 +45,7 @@ const Login = () => {
         <input
           type="submit"
           value="Login"
-          onClick={loginUser}
+          onClick={() => login(loginUserData)}
           className="submit_input"
           style={{
             backgroundColor: "#5D9C59",

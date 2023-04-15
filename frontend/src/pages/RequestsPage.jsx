@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import "./RequestsPage.css";
 import { useSelector } from "react-redux";
 import { Button, Space, notification } from "antd";
-import Cookies from "cookies-js";
+import Cookies from "js-cookie";
 
 const RequestsPage = () => {
   let localReq = JSON.parse(localStorage.getItem("requests"));
@@ -36,9 +36,10 @@ const RequestsPage = () => {
 
     localAccepted.push(item);
     localStorage.setItem("accepted", JSON.stringify(localAccepted));
+    setTimeout(() => {
+      setFlag(true);
+    }, 1200);
     openNotification("topRight");
-
-    setFlag(true);
   };
 
   return (
@@ -74,6 +75,7 @@ const RequestsPage = () => {
                           onClick={() => {
                             handleAccept(item);
                           }}
+                          disabled={flag == true}
                         >
                           Accept
                         </Button>
