@@ -14,7 +14,6 @@ const getEvents = async(req, res) =>{
 // ------ get single event --------
 const singleEvent = async(req, res) =>{
 
-
     try {
         let singleEvent = await Sports.findById(req.params._id)
 
