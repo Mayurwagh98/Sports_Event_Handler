@@ -11,15 +11,9 @@ const Navbar = () => {
     <>
       <nav>
         <ul>
-          <li style={{ color: "white" }}>{username}</li>
+          {/* <li style={{ color: "white" }}>{username}</li> */}
           <li>
             <NavLink to="/">Dashboard</NavLink>
-          </li>
-          <li>
-            <NavLink to="/signup">Signup</NavLink>
-          </li>
-          <li>
-            <NavLink to="/login">Login</NavLink>
           </li>
 
           <li>
@@ -31,6 +25,12 @@ const Navbar = () => {
           </li>
           <li>
             <NavLink to="/room">Event Room</NavLink>
+          </li>
+          <li>
+            <NavLink to="/signup">Signup</NavLink>
+          </li>
+          <li>
+            <NavLink to="/login">Login</NavLink>
           </li>
         </ul>
       </nav>

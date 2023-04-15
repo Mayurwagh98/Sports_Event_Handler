@@ -1,6 +1,18 @@
 table {
-    /* border: 1px solid red; */
+    /* border: 1px solid black; */
     width: 90%;
-    margin: auto;
+    margin: 10px auto;
     text-align: center;
+}
+
+table, tr, td {
+    border: 1px solid black;
+}
+
+Button{
+    margin: 10px;
+}
+th{
+    color: white;
+    padding: 5px;
 }

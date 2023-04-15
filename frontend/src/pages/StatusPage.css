@@ -1,0 +1,6 @@
+.status_table{
+    border: 2px solid #262A56;
+}
+.status_tbody td{
+    padding: 5px;
+}

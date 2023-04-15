@@ -27,7 +27,8 @@ const Login = () => {
         }, 1200);
       })
       .catch((e) => {
-        console.log(e.message);
+        // console.log(e);
+        alert(e.response.data.message);
       });
   };
 

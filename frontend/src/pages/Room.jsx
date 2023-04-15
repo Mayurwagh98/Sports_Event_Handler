@@ -15,7 +15,7 @@ const Room = () => {
 
       {room
         ?.filter((el) => {
-          return el.status == "accepted";
+          return el.status == "accepted" ;
         })
         .map((item, index) => {
           return (

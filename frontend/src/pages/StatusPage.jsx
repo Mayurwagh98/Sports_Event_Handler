@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Cookies from "cookies-js";
+import "./StatusPage.css";
 
 const StatusPage = () => {
   let localReq = JSON.parse(localStorage.getItem("requests"));
@@ -12,16 +13,16 @@ const StatusPage = () => {
   return (
     <div>
       <h3>Hi {username}, Status of your requests....</h3>
-      <table>
-        <thead>
-          <tr>
-            <td>Event Title</td>
-            <td>Description</td>
-            <td>Timing</td>
-            <td>Status</td>
+      <table className="status_table">
+        <thead className="status_thead">
+          <tr style={{ backgroundColor: "#454545" }}>
+            <th>Event Title</th>
+            <th>Description</th>
+            <th>Timing</th>
+            <th>Status</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="status_tbody">
           {acceptedReq
             ?.filter((el) => {
               return user !== el.userID;

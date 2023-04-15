@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSingleEventData, userJoiningRequest } from "../redux/action";
 import { Button, Modal, Result, Progress, Space } from "antd";
 import Cookies from "cookies-js";
+import { useNavigate } from "react-router-dom";
 import "./EventDetails.css";
 // import { userJoiningRequest } from "../redux/action";
+import { Timer } from "./Timer";
 
 const EventDetails = () => {
   let { _id } = useParams();
@@ -13,6 +15,7 @@ const EventDetails = () => {
   let count = Math.round(Math.random() * singleEvent.number_of_players_limit);
   let [countReq, setCountReq] = useState(0);
   let dispatch = useDispatch();
+  let navigate = useNavigate();
   let user = Cookies.get("user");
   let username = Cookies.get("username");
   let localReq = JSON.parse(localStorage.getItem("requests")) || [];
@@ -37,11 +40,11 @@ const EventDetails = () => {
     if (count < singleEvent.number_of_players_limit) {
       setCountReq((prev) => prev + 1);
 
-      // for (let x of localReq) {
-      //   if (x._id == singleEvent._id) {
-      //     return alert("Request already sent");
-      //   }
-      // }
+      for (let x of localReq) {
+        if (x._id == singleEvent._id) {
+          return alert("Request already sent");
+        }
+      }
       //   alert("request sent");
       showModal();
       let status = "Requested";
@@ -64,15 +67,20 @@ const EventDetails = () => {
           <p>Timing:- {singleEvent.timing}</p>
           <p>Players Limit:- {singleEvent.number_of_players_limit}</p>
           <p>Players Joined:- {count}</p>
+
           {user !== singleEvent.userID ? (
             <Button
               type="primary"
               onClick={handleJoin}
               disabled={countReq == 1}
             >
-              Request to Join
+              Join Event
             </Button>
-          ) : null}
+          ) : (
+            <p>
+              Event Time:- <Timer />
+            </p>
+          )}
           <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
             <Result
               status="success"

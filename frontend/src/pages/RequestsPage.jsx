@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useMemo } from "react";
 import "./RequestsPage.css";
 import { useSelector } from "react-redux";
+import { Button, Divider, Space, notification } from "antd";
+import {
+  RadiusBottomleftOutlined,
+  RadiusBottomrightOutlined,
+  RadiusUpleftOutlined,
+  RadiusUprightOutlined,
+} from "@ant-design/icons";
 import Cookies from "cookies-js";
 
 const RequestsPage = () => {
@@ -8,10 +15,27 @@ const RequestsPage = () => {
   console.log(localReq);
 
   let user = Cookies.get("user");
+  const Context = React.createContext({
+    name: "Default",
+  });
+  const [api, contextHolder] = notification.useNotification();
+  const openNotification = (placement) => {
+    api.info({
+      description: <Context.Consumer>{({ name }) => name}</Context.Consumer>,
+      placement,
+    });
+  };
+  const contextValue = useMemo(
+    () => ({
+      name: "Request Accepted",
+    }),
+    []
+  );
 
   let handleAccept = (item) => {
     item.status = "accepted";
     localStorage.setItem("requests", JSON.stringify(localReq));
+    openNotification("topRight");
   };
 
   return (
@@ -19,12 +43,12 @@ const RequestsPage = () => {
       <h1>Requests</h1>
       <table>
         <thead>
-          <tr>
-            <td>Username</td>
-            <td>User</td>
-            <td>Event Title</td>
-            <td></td>
-            <td></td>
+          <tr style={{ backgroundColor: "#454545" }}>
+            <th>Username</th>
+            <th>User</th>
+            <th>Event Title</th>
+            <th>Accept Request</th>
+            <th>Reject Request</th>
           </tr>
         </thead>
         <tbody>
@@ -34,21 +58,27 @@ const RequestsPage = () => {
             })
             .map((item, index) => {
               return (
-                <tr key={index}>
+                <tr key={index} style={{ backgroundColor: "#F3E8FF" }}>
                   <td>{item.username}</td>
                   <td>{item.user}</td>
                   <td>{item.title}</td>
                   <td>
-                    <button
-                      onClick={() => {
-                        handleAccept(item), alert("Request accepted");
-                      }}
-                    >
-                      Accept
-                    </button>
+                    <Context.Provider value={contextValue}>
+                      {contextHolder}
+                      <Space>
+                        <Button
+                          type="primary"
+                          onClick={() => {
+                            handleAccept(item);
+                          }}
+                        >
+                          Accept
+                        </Button>
+                      </Space>
+                    </Context.Provider>
                   </td>
                   <td>
-                    <button>Reject</button>
+                    <Button type="primary">Reject</Button>
                   </td>
                 </tr>
               );

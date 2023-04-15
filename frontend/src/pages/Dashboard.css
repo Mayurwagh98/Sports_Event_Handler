@@ -41,19 +41,23 @@
 
 .search_div {
     /* border: 1px solid red; */
-    width: 80%;
-    margin: auto;
+    width: 75%;
+    margin: auto auto auto 190px;
     display: flex;
     grid-template-columns: repeat(2, 1fr);
-    justify-content: space-around;
+    /* justify-content: space-around; */
 }
 
 .search_div>div:nth-child(1) {
     width: 60%;
+    /* border: 1px solid red; */
 }
 
 .search_div>div:nth-child(2) {
-    width: 30%;
+    /* width: 15%; */
+    margin: 10px 0 0 0;
+    /* border: 1px solid red; */
+
 }
 
 .heading_create_div {
