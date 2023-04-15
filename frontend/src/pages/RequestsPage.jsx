@@ -1,18 +1,14 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import "./RequestsPage.css";
 import { useSelector } from "react-redux";
-import { Button, Divider, Space, notification } from "antd";
-import {
-  RadiusBottomleftOutlined,
-  RadiusBottomrightOutlined,
-  RadiusUpleftOutlined,
-  RadiusUprightOutlined,
-} from "@ant-design/icons";
+import { Button, Space, notification } from "antd";
 import Cookies from "cookies-js";
 
 const RequestsPage = () => {
   let localReq = JSON.parse(localStorage.getItem("requests"));
   console.log(localReq);
+
+  let [flag, setFlag] = useState(false);
 
   let user = Cookies.get("user");
   const Context = React.createContext({
@@ -32,10 +28,17 @@ const RequestsPage = () => {
     []
   );
 
+  let localAccepted = JSON.parse(localStorage.getItem("accepted")) || [];
+
   let handleAccept = (item) => {
     item.status = "accepted";
     localStorage.setItem("requests", JSON.stringify(localReq));
+
+    localAccepted.push(item);
+    localStorage.setItem("accepted", JSON.stringify(localAccepted));
     openNotification("topRight");
+
+    setFlag(true);
   };
 
   return (
@@ -54,7 +57,7 @@ const RequestsPage = () => {
         <tbody>
           {localReq
             ?.filter((el) => {
-              return user == el.userID;
+              return user == el.userID && el.status !== "accepted";
             })
             .map((item, index) => {
               return (

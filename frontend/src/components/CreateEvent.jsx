@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./CreateEvent.css";
 import { Input } from "antd";
+import { getEventsData } from "../redux/action";
+import { useDispatch, useSelector } from "react-redux";
 import Cookies from "cookies-js";
 
-const CreateEvent = () => {
+const CreateEvent = ({ setFilterData, filterData }) => {
   let [text, setText] = useState({
     title: "Football",
     image: "",
@@ -14,6 +16,7 @@ const CreateEvent = () => {
   });
 
   let cookieToken = Cookies.get("token");
+  let dispatch = useDispatch();
 
   let handleCreate = async () => {
     let config = {
@@ -25,6 +28,7 @@ const CreateEvent = () => {
       .post("http://localhost:8000/api/events/create", text, config)
       .then((res) => {
         console.log(res.data);
+        dispatch(getEventsData(setFilterData, filterData));
         alert(res.data.message);
       })
       .catch((e) => console.log(e.response?.data.message || e.message));

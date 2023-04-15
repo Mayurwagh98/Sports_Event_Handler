@@ -6,7 +6,7 @@ const StatusPage = () => {
   let localReq = JSON.parse(localStorage.getItem("requests"));
   //   console.log(localReq);
   let [acceptedReq, setAcceptedReq] = useState(localReq);
-  console.log(acceptedReq);
+  // console.log(acceptedReq);
   let user = Cookies.get("user");
   let username = Cookies.get("username");
 
@@ -23,7 +23,7 @@ const StatusPage = () => {
           </tr>
         </thead>
         <tbody className="status_tbody">
-          {acceptedReq
+          {localReq
             ?.filter((el) => {
               return user !== el.userID;
             })

@@ -2,29 +2,39 @@ import React, { useState } from "react";
 import Cookies from "cookies-js";
 
 const Room = () => {
-  let localReq = JSON.parse(localStorage.getItem("requests"));
-  console.log(localReq);
+  let localAccepted = JSON.parse(localStorage.getItem("accepted"));
 
-  let [room, setRoom] = useState(localReq);
+  let [room, setRoom] = useState(localAccepted);
+  console.log(room);
   let username = Cookies.get("username");
   let user = Cookies.get("user");
 
   return (
     <div>
-      <h1> {username}, Room</h1>
+      <h2> Hey! {username}, these are the players in the room.....</h2>
 
-      {room
-        ?.filter((el) => {
-          return el.status == "accepted" ;
-        })
-        .map((item, index) => {
-          return (
-            <div>
-              <h2>{item.title}</h2>
-              <h2>{item.status}</h2>
-            </div>
-          );
-        })}
+      <table>
+        <thead>
+          <tr style={{ backgroundColor: "#454545" }}>
+            <th>Event</th>
+            <th>Players</th>
+          </tr>
+        </thead>
+        <tbody>
+          {room
+            ?.filter((el) => {
+              return el.status == "accepted";
+            })
+            .map((item, index) => {
+              return (
+                <tr key={index}>
+                  <td>{item.title}</td>
+                  <td>{item.username}</td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </table>
     </div>
   );
 };

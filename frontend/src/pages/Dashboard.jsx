@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./Dashboard.css";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "antd";
@@ -41,7 +42,7 @@ const Dashboard = () => {
   };
   const handleOk = () => {
     setIsModalOpen(false);
-    dispatch(getEventsData(setFilterData, filterData));
+    // dispatch(getEventsData(setFilterData, filterData));
   };
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -78,10 +79,24 @@ const Dashboard = () => {
     }
   };
 
+  let handleDelete = async (item) => {
+    try {
+      await axios.delete(`http://localhost:8000/api/events/delete/${item._id}`);
+
+      // console.log(data)
+      dispatch(getEventsData(setFilterData, filterData));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <div className="heading_create_div">
-        <h3>Welcome back {username}, this are the events</h3>
+        <h3>
+          Welcome back <span style={{ color: "red" }}>{username}</span>, this
+          are the events
+        </h3>
 
         {/* ------ create event modal -------------- */}
         <Button type="primary" onClick={showModal}>
@@ -93,7 +108,7 @@ const Dashboard = () => {
           onOk={handleOk}
           onCancel={handleCancel}
         >
-          <CreateEvent />
+          <CreateEvent setFilterData={setFilterData} filterData={filterData} />
         </Modal>
       </div>
 
@@ -149,6 +164,16 @@ const Dashboard = () => {
                 >
                   Details
                 </Button>
+
+                {user == item.userID ? (
+                  <Button
+                    type="primary"
+                    danger
+                    onClick={() => handleDelete(item)}
+                  >
+                    Delete
+                  </Button>
+                ) : null}
               </div>
             );
           })}

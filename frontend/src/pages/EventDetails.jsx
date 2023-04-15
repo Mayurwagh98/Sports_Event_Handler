@@ -40,12 +40,6 @@ const EventDetails = () => {
     if (count < singleEvent.number_of_players_limit) {
       setCountReq((prev) => prev + 1);
 
-      for (let x of localReq) {
-        if (x._id == singleEvent._id) {
-          return alert("Request already sent");
-        }
-      }
-      //   alert("request sent");
       showModal();
       let status = "Requested";
       singleEvent = { ...singleEvent, user, status, username };
