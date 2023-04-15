@@ -1,0 +1,20 @@
+.main_event_details_div {
+    display: flex;
+    /* border: 1px solid red; */
+    width: 60%;
+    margin: 20px auto;
+
+}
+
+.main_event_details_div:nth-child(2)>img {
+    height: auto;
+    width: 50%;
+}
+.main_event_details_div:nth-child(2)>div{
+    /* border: 1px solid blue; */
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    line-height: 30px;
+    width: 50%;
+    margin: auto auto auto 50px;
+}

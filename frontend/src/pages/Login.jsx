@@ -20,6 +20,7 @@ const Login = () => {
         console.log(res.data);
         Cookies.set("token", res.data.token);
         Cookies.set("user", res.data.userId);
+        Cookies.set("username", res.data.name);
         alert(res.data.message);
         setTimeout(() => {
           navigate("/");

@@ -8,12 +8,21 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
-    margin: auto auto auto 200px;
-    width: 80%;
+    margin: auto;
+    width: 90%;
+    /* border: 1px solid red; */
 }
 
 .main_events_div>div {
-    border: 1px solid red;
+    /* border: 1px solid red; */
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.main_events_div>div>img {
+    width: 100%;
+    height: 200px;
 }
 
 .main_events_div>div>h2, p {
@@ -45,4 +54,11 @@
 
 .search_div>div:nth-child(2) {
     width: 30%;
+}
+
+.heading_create_div {
+    display: flex;
+    /* border: 1px solid red; */
+    justify-content: space-between;
+    margin: 20px;
 }

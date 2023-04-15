@@ -17,7 +17,7 @@ const Dashboard = () => {
 
   let dispatch = useDispatch();
   let user = Cookies.get("user");
-  // console.log(user);
+  let username = Cookies.get("username");
 
   // useEffect(() => {
   //   if (location || events.length === 0) {
@@ -80,20 +80,23 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h1>Dashboard</h1>
+      <div className="heading_create_div">
+        <h3>Welcome back {username}, this are the events</h3>
 
-      {/* ------ create event modal -------------- */}
-      <Button type="primary" onClick={showModal}>
-        Creat Event
-      </Button>
-      <Modal
-        title=""
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <CreateEvent />
-      </Modal>
+        {/* ------ create event modal -------------- */}
+        <Button type="primary" onClick={showModal}>
+          Creat Event
+        </Button>
+        <Modal
+          title=""
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          <CreateEvent />
+        </Modal>
+      </div>
+
       {/* ---------- search div ----------- */}
       <div className="search_div">
         <div>
@@ -134,19 +137,18 @@ const Dashboard = () => {
           .map((item, index) => {
             return (
               <div key={index}>
+                <img src={item.image} />
                 <h3>Title:- {item.title}</h3>
                 {/* <p>UserID:- {item.userID}</p> */}
-                {/* <p>Description:- {item.description}</p> */}
                 <p>Timing:- {item.timing}</p>
-                {/* <p>Limit:- {item.number_of_players_limit}</p> */}
-                {user !== item.userID ? (
-                  <Button
-                    type="primary"
-                    onClick={() => navigate(`/eventdetails/${item._id}`)}
-                  >
-                    Details
-                  </Button>
-                ) : null}
+                <p>{item.description}</p>
+
+                <Button
+                  type="primary"
+                  onClick={() => navigate(`/eventdetails/${item._id}`)}
+                >
+                  Details
+                </Button>
               </div>
             );
           })}
