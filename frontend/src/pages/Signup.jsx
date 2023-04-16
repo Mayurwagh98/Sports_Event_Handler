@@ -20,19 +20,27 @@ const Signup = () => {
       [name]: value,
     });
   };
-
+  let funCB = (data) => {
+    // this functions works only if it gets response from the api
+    if (data.token) {
+      navigate("/login");
+    }
+  };
   let signupUser = async () => {
     await axios
       // .post("http://localhost:8000/api/signup", signupData)
       .post("https://take4.onrender.com/api/signup", signupData)
       .then((res) => {
-        // console.log(res.data);
         alert(res.data.message);
-        setTimeout(() => {
-          navigate("/login");
-        }, 1200);
+        funCB && funCB(res.data);
+        // setTimeout(() => {
+        //   navigate("/login");
+        // }, 1200);
       })
-      .catch((e) => console.log(e.message));
+      .catch((e) => {
+        console.log(e.message);
+        funCB && funCB(e.message);
+      });
   };
 
   return (

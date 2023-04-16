@@ -6,11 +6,9 @@ import Cookies from "js-cookie";
 
 const RequestsPage = () => {
   let localReq = JSON.parse(localStorage.getItem("requests"));
-  console.log(localReq);
-
   let [flag, setFlag] = useState(false);
-
   let user = Cookies.get("user");
+
   const Context = React.createContext({
     name: "Default",
   });
@@ -29,7 +27,7 @@ const RequestsPage = () => {
   );
 
   let localAccepted = JSON.parse(localStorage.getItem("accepted")) || [];
-
+  
   let handleAccept = (item) => {
     item.status = "accepted";
     localStorage.setItem("requests", JSON.stringify(localReq));

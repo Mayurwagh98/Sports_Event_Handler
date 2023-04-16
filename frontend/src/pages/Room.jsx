@@ -3,7 +3,6 @@ import Cookies from "js-cookie";
 
 const Room = () => {
   let localAccepted = JSON.parse(localStorage.getItem("accepted"));
-
   let [room, setRoom] = useState(localAccepted);
   console.log(room);
   let username = Cookies.get("username");

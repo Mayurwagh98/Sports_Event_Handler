@@ -6,7 +6,6 @@ import { Button, Modal, Result, Progress, Space } from "antd";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import "./EventDetails.css";
-// import { userJoiningRequest } from "../redux/action";
 import { Timer } from "./Timer";
 
 const EventDetails = () => {
@@ -36,6 +35,7 @@ const EventDetails = () => {
     setIsModalOpen(false);
   };
 
+  // ------------- joining room -----------------
   let handleJoin = () => {
     if (count < singleEvent.number_of_players_limit) {
       setCountReq((prev) => prev + 1);
@@ -92,7 +92,6 @@ const EventDetails = () => {
           </Modal>
         </div>
 
-        {/* <button onClick={() => dispatch(userJoiningRequest(user))}>join</button> */}
       </div>
     </div>
   );

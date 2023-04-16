@@ -4,9 +4,6 @@ import "./StatusPage.css";
 
 const StatusPage = () => {
   let localReq = JSON.parse(localStorage.getItem("requests"));
-  //   console.log(localReq);
-  let [acceptedReq, setAcceptedReq] = useState(localReq);
-  // console.log(acceptedReq);
   let user = Cookies.get("user");
   let username = Cookies.get("username");
 

@@ -24,6 +24,14 @@ const Login = () => {
     });
   };
 
+  let funCB = (data) => {
+    // this functions works only if it gets response from the api
+
+    if (data.token) {
+      navigate("/");
+    }
+  };
+
   return (
     <div>
       <form onSubmit={(e) => e.preventDefault()} className="login_form">
@@ -45,7 +53,7 @@ const Login = () => {
         <input
           type="submit"
           value="Login"
-          onClick={() => login(loginUserData)}
+          onClick={() => login({ ...loginUserData, funCB })}
           className="submit_input"
           style={{
             backgroundColor: "#5D9C59",

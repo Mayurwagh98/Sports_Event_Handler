@@ -5,16 +5,13 @@ import Cookies from "js-cookie";
 import { useAuth } from "./AuthContext";
 
 const Navbar = () => {
-  // let user = Cookies.get("user");
-  // let username = Cookies.get("username");
-
-  let { logout } = useAuth();
+  let { user, logout } = useAuth();
+  let { token } = user || "";
 
   return (
     <>
       <nav>
         <ul>
-          {/* <li style={{ color: "white" }}>{username}</li> */}
           <li>
             <NavLink to="/">Dashboard</NavLink>
           </li>
@@ -32,13 +29,12 @@ const Navbar = () => {
           <li>
             <NavLink to="/signup">Signup</NavLink>
           </li>
-
           <li>
-            <NavLink to="/login">Login</NavLink>
-          </li>
-          <li>
-            {/* <button >Logout</button> */}
-            <button onClick={logout}>Logout</button>
+            {token ? (
+              <NavLink onClick={logout}>Logout</NavLink>
+            ) : (
+              <NavLink to="/login">Login</NavLink>
+            )}
           </li>
         </ul>
       </nav>

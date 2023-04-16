@@ -20,22 +20,11 @@ const Dashboard = () => {
   let user = Cookies.get("user");
   let username = Cookies.get("username");
 
-  // useEffect(() => {
-  //   if (location || events.length === 0) {
-  //     let Title = searchParams.getAll("Title");
-  //     let queryParams = {
-  //       params: {
-  //         title: Title,
-  //       },
-  //     };
-
-  //     dispatch(getEventsData(queryParams));
-  //   }
-  // }, [location.search]);
   useEffect(() => {
     dispatch(getEventsData(setFilterData, filterData));
   }, []);
 
+  // ---------- modal-------------------
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -79,10 +68,13 @@ const Dashboard = () => {
     }
   };
 
+  // ------------ delete ----------------
   let handleDelete = async (item) => {
     try {
       // await axios.delete(`http://localhost:8000/api/events/delete/${item._id}`);
-      await axios.delete(`https://take4.onrender.com/api/events/delete/${item._id}`);
+      await axios.delete(
+        `https://take4.onrender.com/api/events/delete/${item._id}`
+      );
 
       // console.log(data)
       dispatch(getEventsData(setFilterData, filterData));

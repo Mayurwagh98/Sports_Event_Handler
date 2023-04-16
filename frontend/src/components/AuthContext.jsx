@@ -7,34 +7,36 @@ const AuthContext = createContext("");
 
 export default function AuthContextProvider({ children }) {
   const navigate = useNavigate();
-  
-  let cookiesToken = Cookies.get("token")
-  
+
+  let cookiesToken = Cookies.get("token");
 
   const [user, setUser] = useState({
     isAuth: false,
     loading: false,
     error: null,
-    token: cookiesToken || "" ,
+    token: cookiesToken || "",
   });
-  // console.log("user:", user);
+
+
 
   const login = async (loginUserData) => {
-    // setUser(user);
+    let { username, password, funCB } = loginUserData;
+    let payload = { username, password };
 
     let newData = { ...user, loading: true };
     setUser({ ...newData });
 
-    //   const res = await axios.post(`https://reqres.in/api/login`, userData);
     await axios
-    //   .post("http://localhost:8000/api/login", loginUserData)
-      .post("https://take4.onrender.com/api/login", loginUserData)
+      //.post("http://localhost:8000/api/login", loginUserData)
+      .post("https://take4.onrender.com/api/login", payload)
       .then((res) => {
         console.log(res.data);
         Cookies.set("token", res.data.token);
         Cookies.set("user", res.data.userId);
         Cookies.set("username", res.data.name);
-        // alert(res.data.message);
+        alert(res.data.message);
+
+        funCB && funCB(res.data); // standard solution works even if network is slow
 
         newData = {
           ...user,
@@ -43,22 +45,14 @@ export default function AuthContextProvider({ children }) {
           token: res.data.token,
         };
         setUser(newData);
-
-        setTimeout(() => {
-          // console.log(user, newData)
-          navigate("/");
-        }, 1500);
-        
       })
       .catch((e) => {
         // console.log(e);
         newData = { ...user, loading: false, error: e };
         setUser({ ...newData });
         alert(e.response.data.message);
+        funCB && funCB(e.message);
       });
-    // console.log("res:", res.data);
-
-    //   localStorage.setItem("userToken", JSON.stringify(res.data.token));
   };
 
   const logout = () => {
@@ -68,11 +62,10 @@ export default function AuthContextProvider({ children }) {
       error: null,
       token: "",
     });
-    
+
     Cookies.remove("token");
 
     alert("Logged out!");
-    
   };
 
   return (

@@ -52,7 +52,7 @@ let getEventsData = (setFilterData, filterData) => async (dispatch) => {
     // .get("http://localhost:8000/api/events")
     .get("https://take4.onrender.com/api/events")
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       filterData = res.data;
       setFilterData(filterData);
 
@@ -74,7 +74,7 @@ let getSingleEventData = (_id) => async (dispatch) => {
       dispatch(get_single_event_success(res.data));
     })
     .catch((e) => {
-      console.log(e);
+      // console.log(e);
       dispatch(get_single_event_failure(e));
     });
 };
