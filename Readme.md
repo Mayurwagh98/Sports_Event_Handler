@@ -13,6 +13,7 @@ https://take-live-calls-assignment.netlify.app
 - Organizer can delete an event
 - User can see the details of the event
 - User can request to join an event
+- User can filter and search the event
 - Organizer can accept or reject the request of the user to join
 - User can see the status of his requests
 - User can see other users who are in the event
